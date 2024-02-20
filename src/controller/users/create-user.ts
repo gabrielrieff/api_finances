@@ -25,6 +25,14 @@ export class createdUserController {
       });
 
       return res.status(201).json(user);
-    } catch (error) {}
+    } catch (error) {
+      if (error != "") {
+        return res.status(400).json({ error: error.message });
+      } else {
+        return res
+          .status(500)
+          .json({ error: "Error when trying to create a new user" });
+      }
+    }
   }
 }
