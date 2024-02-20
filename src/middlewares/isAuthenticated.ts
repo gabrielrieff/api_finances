@@ -22,7 +22,7 @@ export function isAuthenticated(
 
     req.userID = sub;
 
-    return next();
+    return next!();
   } catch (error) {
     return res.status(401).end();
   }

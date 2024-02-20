@@ -2,7 +2,7 @@ import { Router } from "express";
 import { createdUserController } from "../controller/users/create-user";
 import { getUsersController } from "../controller/users/get-users";
 import { authUserController } from "../controller/users/auth-user";
-import { isAuthenticated } from "../middlewares/isAuthenticared";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const router = Router();
 
