@@ -8,8 +8,6 @@ export class getUsersController {
       const users = await GetUsersRepo.getUsers(req.userID);
 
       return res.json(users);
-    } catch (error) {
-      return res.status(500).json(error);
-    }
+    } catch (error) {}
   }
 }
