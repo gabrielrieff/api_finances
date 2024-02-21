@@ -25,4 +25,36 @@ model User {
   passwordResetExpired DateTime?
 
   @@map("users")
+  invoices Invoice[]
+}
+
+model Invoice {
+  id String @id @default(uuid())
+  description String
+  value Float
+  type Int
+  installments Int
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  dateEnd DateTime? @default(now())
+  invoiceID String?
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("invoices")
+}
+
+model Category {
+  id String @id @default(uuid())
+  title String
+  banner String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("categories")
+  invoices Invoice[]
 }
