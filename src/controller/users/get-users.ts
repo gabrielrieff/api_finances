@@ -5,7 +5,7 @@ export class getUsersController {
   async handle(req: Request, res: Response) {
     try {
       const GetUsersRepo = new getUsersRepo();
-      const users = await GetUsersRepo.getUsers(req.userID);
+      const users = await GetUsersRepo.getUsers();
 
       return res.json(users);
     } catch (error) {
