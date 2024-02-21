@@ -11,7 +11,7 @@ export class deleteUserController {
       const user = await DeleteUserRepo.deleteUser(id);
 
       return res.json(user);
-    } catch (error) {
+    } catch (error: any) {
       if (error != "") {
         return res.status(400).json({ error: error.message });
       } else {

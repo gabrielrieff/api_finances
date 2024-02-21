@@ -2,23 +2,8 @@ import { CreateUserParams } from "../../@types/user-types";
 import prismaClient from "../../db/prisma";
 import { User } from "../../model/userModel";
 
-interface createUser extends CreateUserParams {
-  userID: string;
-}
-
 export class cresteUserRepo {
-  async createUser(params: createUser): Promise<User> {
-    const userCreator = await prismaClient.user.findFirst({
-      where: {
-        id: params.userID,
-        userType: 2,
-      },
-    });
-
-    if (!userCreator) {
-      throw new Error("User not able to create new users");
-    }
-
+  async createUser(params: CreateUserParams): Promise<User> {
     const userAlreadyExist = await prismaClient.user.findFirst({
       where: {
         email: params.email,
@@ -29,15 +14,8 @@ export class cresteUserRepo {
       throw new Error("User already exist!");
     }
 
-    const data = {
-      userType: params.userType,
-      email: params.email,
-      firstName: params.firstName,
-      lastName: params.lastName,
-      password: params.password,
-    };
     const user = await prismaClient.user.create({
-      data: data,
+      data: params,
       select: {
         id: true,
         firstName: true,

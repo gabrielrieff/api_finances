@@ -17,6 +17,7 @@ export class detailUserRepo {
         created_at: true,
       },
     });
+
     const sumArray = await prismaClient.invoice.findMany({
       where: {
         userId: id,
@@ -42,15 +43,16 @@ export class detailUserRepo {
     let expense: number = 0;
 
     if (sumArray.length > 0) {
-      for (let i = 0; i < sumArray.length; i++) {
-        if (sumArray[i].type === 0) {
-          sum += sumArray[i].value;
-          revenue += sumArray[i].value;
+      sumArray.forEach((item) => {
+        const { type, value } = item;
+        if (type === 0) {
+          sum += value;
+          revenue += value;
         } else {
-          expense += sumArray[i].value;
-          sum -= sumArray[i].value;
+          sum -= value;
+          expense += value;
         }
-      }
+      });
     }
 
     if (!detail) {

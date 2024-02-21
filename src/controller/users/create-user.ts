@@ -8,7 +8,6 @@ export class createdUserController {
   async handle(req: Request, res: Response) {
     try {
       const { firstName, lastName, email, password, userType } = req.body;
-      const userID = req.userID;
       isValidEmail(email);
 
       const passwordHash = await hash(password, 8);
@@ -23,7 +22,6 @@ export class createdUserController {
         email,
         password: req.body.password,
         userType,
-        userID,
       });
 
       return res.status(201).json(user);
