@@ -15,7 +15,7 @@ export class cresteUserRepo {
       },
     });
 
-    if (userCreator) {
+    if (!userCreator) {
       throw new Error("User not able to create new users");
     }
 
@@ -29,8 +29,15 @@ export class cresteUserRepo {
       throw new Error("User already exist!");
     }
 
+    const data = {
+      userType: params.userType,
+      email: params.email,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      password: params.password,
+    };
     const user = await prismaClient.user.create({
-      data: params,
+      data: data,
       select: {
         id: true,
         firstName: true,
