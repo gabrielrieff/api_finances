@@ -9,6 +9,7 @@ import { updateUserController } from "../controller/users/update-user";
 import multer from "multer";
 import uploadConfig from "../config/multer";
 import { resetPasswordController } from "../controller/users/reset-password";
+import { deleteCategoriController } from "../controller/category/delete-categori";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp/image/user"));
@@ -38,6 +39,11 @@ router.post(
   isAuthenticated,
   uploadCategori.single("file"),
   new createdUserController().handle
+);
+router.delete(
+  "/categori/:id",
+  isAuthenticated,
+  new deleteCategoriController().handle
 );
 
 export { router };

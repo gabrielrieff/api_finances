@@ -1,4 +1,6 @@
+import { resolve } from "path";
 import prismaClient from "../../db/prisma";
+import { deletePhoto } from "../../helpers/deletePhoto";
 
 export class deleteUserRepo {
   async deleteUser(id: string) {
@@ -19,6 +21,12 @@ export class deleteUserRepo {
     if (!count) {
       throw new Error("User not deleted");
     }
+
+    const folder = "./tmp/image/user";
+    const image = user.photo!;
+
+    const filePath = resolve(__dirname, "../", "../", "../", folder, image);
+    await deletePhoto(filePath);
 
     return user;
   }
