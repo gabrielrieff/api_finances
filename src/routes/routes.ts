@@ -8,15 +8,21 @@ import { detailUserController } from "../controller/users/detail-user";
 import { updateUserController } from "../controller/users/update-user";
 import multer from "multer";
 import uploadConfig from "../config/multer";
+import { resetPasswordController } from "../controller/users/reset-password";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp/image/user"));
 
-router.post("/user", isAuthenticated, new createdUserController().handle);
 router.post("/session", new authUserController().handle);
+router.post("/user", isAuthenticated, new createdUserController().handle);
+router.post(
+  "/user/resetpassword",
+  isAuthenticated,
+  new resetPasswordController().handle
+);
 router.get("/users", isAuthenticated, new getUsersController().handle);
-router.delete("/user/:id", isAuthenticated, new deleteUserController().handle);
 router.get("/user/detail", isAuthenticated, new detailUserController().handle);
+router.delete("/user/:id", isAuthenticated, new deleteUserController().handle);
 router.patch(
   "/user/:id",
   isAuthenticated,
