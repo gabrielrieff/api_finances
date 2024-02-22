@@ -12,7 +12,9 @@ import { resetPasswordController } from "../controller/users/reset-password";
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp/image/user"));
+const uploadCategori = multer(uploadConfig.upload("./tmp/image/categori"));
 
+// Routers USER
 router.post("/session", new authUserController().handle);
 router.post("/user", isAuthenticated, new createdUserController().handle);
 router.post(
@@ -28,6 +30,14 @@ router.patch(
   isAuthenticated,
   upload.single("file"),
   new updateUserController().handle
+);
+
+// Routers CATEGORI
+router.post(
+  "/categori",
+  isAuthenticated,
+  uploadCategori.single("file"),
+  new createdUserController().handle
 );
 
 export { router };
