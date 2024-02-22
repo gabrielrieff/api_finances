@@ -19,7 +19,7 @@ export class createCategoriController {
       const categori = await CreateCategori.createCategori(data);
 
       return res.json(categori);
-    } catch (error) {
+    } catch (error: any) {
       if (error != "") {
         return res.status(400).json({ error: error.message });
       } else {
