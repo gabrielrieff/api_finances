@@ -29,7 +29,6 @@ export class updateUserRepo {
       const image = user.photo!;
 
       const filePath = resolve(__dirname, "../", "../", "../", folder, image);
-      console.log(filePath);
       await deletePhoto(filePath);
     }
 
