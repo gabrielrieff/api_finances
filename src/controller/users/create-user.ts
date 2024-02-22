@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { hash } from "bcryptjs";
 
-import { isValidEmail } from "../../helpers/isValidEmail";
 import { cresteUserRepo } from "../../repositories/users/create-user-repo";
+import { isValidEmail } from "../../helpers/isValidEmail";
+import { hashPassword } from "../../helpers/hashPassword";
 
 export class createdUserController {
   async handle(req: Request, res: Response) {
@@ -10,7 +10,7 @@ export class createdUserController {
       const { firstName, lastName, email, password, userType } = req.body;
       isValidEmail(email);
 
-      const passwordHash = await hash(password, 8);
+      const passwordHash = await hashPassword(password);
 
       req.body.password = passwordHash;
 
